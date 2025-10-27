@@ -55,5 +55,5 @@ TravelPlanner/
 👩‍💻 Author
 
 Aastha Pandey
-🎓 B.Tech CSE – 4th Semester
+🎓 B.Tech CSE – 5th Semester
 📅 Project: TravelPlanner 
