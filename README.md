@@ -56,4 +56,4 @@ TravelPlanner/
 
 Aastha Pandey
 🎓 B.Tech CSE – 4th Semester
-📅 Project: TravelPlanner (ASP.NET MVC Project Submission)
+📅 Project: TravelPlanner 
