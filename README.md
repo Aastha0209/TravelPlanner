@@ -1,78 +1,59 @@
-TravelPlanner
-Project Overview
+✈️ TravelPlanner
+🌍 Project Overview
 
 TravelPlanner is a web-based travel itinerary management system built using ASP.NET Core MVC and MySQL.
 It allows users to register, log in, create and manage trips, add daily itineraries, and upload profile pictures.
-The project includes an interactive dashboard that helps users plan and organize their trips efficiently.
+The project provides an interactive dashboard that helps users plan and organize their trips efficiently.
 
-Features
+🧠 Features
 
-User Registration and Login
+👤 User Registration & Login – Secure authentication system
+🧳 Trip Management – Add, edit, view, and delete trips
+🗓️ Itinerary Planner – Add daily plans and schedules for each trip
+🖼️ Profile Picture Upload – Personalize user profiles
+📅 Interactive Dashboard – Displays all trips with destinations and travel dates
+💾 MySQL Database Integration – Reliable data storage
+⚙️ Entity Framework Core (Migrations) – Automatic database creation and updates
+🌐 ASP.NET Core MVC Framework – Follows MVC architecture for scalability
 
-Trip Management (Add, Edit, Delete)
+⚙️ Technologies Used
 
-Itinerary Planner for Daily Schedules
+ASP.NET Core MVC – Backend Framework
+C# – Application Logic
+Entity Framework Core – ORM with Migrations for MySQL
+MySQL – Database
+HTML, CSS, Bootstrap – Frontend Design
+Visual Studio / VS Code – Development Environment
 
-Profile Picture Upload
+🛠️ Installation & Setup
 
-Dashboard Displaying All Trips
+1️⃣ Clone the repository: git clone https://github.com/Aastha0209/TravelPlanner.git
 
-Data Stored in MySQL Database
+2️⃣ Open the project in Visual Studio or VS Code.
+3️⃣ Update appsettings.json with your MySQL credentials:
+server=localhost;port=3306;database=travelplanner_db;user=root;password=yourpassword
+4️⃣ Apply migrations by running: dotnet ef database update
+(This automatically creates all required tables in MySQL.)
+5️⃣ Run the project using Ctrl + F5 or “Start Without Debugging.”
+It will open in your browser (example: http://localhost:5288
+).
+6️⃣ Register or log in → Create Trips → Add Itineraries → Upload Profile Picture.
 
-Built with ASP.NET Core MVC and Entity Framework Core
-
-Technologies Used
-Technology	Purpose
-ASP.NET Core MVC	Backend Framework
-C#	Application Logic
-Entity Framework Core	ORM for MySQL
-MySQL	Database
-HTML, CSS, Bootstrap	Frontend Design
-Visual Studio / VS Code	Development Environment
-Installation and Setup
-
-Clone the repository using Git.
-
-Open the project in Visual Studio or VS Code.
-
-Configure the database connection in appsettings.json by updating your MySQL credentials.
-
-Run migrations using Entity Framework Core to create the necessary tables.
-
-Start the project using Ctrl + F5 or “Start Without Debugging”.
-
-The project will open in your browser, usually at http://localhost:5001 (the port may vary).
-
-Register or log in to use the system, create trips, add itineraries, and upload profile pictures.
-
-Steps to Run from GitHub
-
-Download or clone this repository.
-
-Open the solution file TravelPlanner.sln in Visual Studio.
-
-Restore NuGet packages if prompted.
-
-Ensure MySQL is running locally.
-
-Apply migrations with Update-Database (only if the database is not created).
-
-Run the project — the web application will launch in your browser.
-
-Project Structure
+🧭 Project Structure
 
 TravelPlanner/
-├── Controllers/ (AccountController, HomeController)
-├── Models/ (User, Trip, Itinerary)
+├── Controllers/ (AccountController.cs, HomeController.cs)
+├── Models/ (User.cs, Trip.cs, Itinerary.cs)
 ├── Views/ (Home, Account)
-├── wwwroot/ (CSS, JS, Images)
+├── Migrations/
+├── wwwroot/ (images, css, js)
 ├── appsettings.json
 ├── Program.cs
-├── TravelPlanner.sln
+├── TravelPlanner.csproj
 ├── README.md
 
-Author
+👩‍💻 Author
 
 Aastha Pandey
-B.Tech CSE, 4th Semester
-Project: TravelPlanner
+🎓 B.Tech CSE – 4th Semester
+📅 Project: TravelPlanner (ASP.NET MVC Project Submission)
