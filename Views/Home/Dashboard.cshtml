@@ -1,0 +1,114 @@
+@model IEnumerable<TravelPlanner.Models.Trip>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary mb-3 fade-in">✈️ Welcome to Your Travel Dashboard</h2>
+        <p class="text-muted fade-in">Manage your trips, view itineraries, and plan your next adventure!</p>
+        <a asp-action="CreateTrip" class="btn btn-gradient px-4 mt-3 fade-in">+ Add New Trip</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-light text-center border rounded-4 shadow-sm py-5 fade-in">
+            <i class="bi bi-geo-alt text-primary fs-2 mb-3"></i>
+            <h6 class="fw-semibold text-secondary">You have no trips yet.</h6>
+            <p class="small text-muted mb-0">Start by creating your first one!</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var trip in Model)
+            {
+                // Automatically load an image for the destination if no image exists
+                var imageUrl = (trip.Images != null && trip.Images.Any())
+                    ? trip.Images.First().ImageUrl
+                    : $"https://source.unsplash.com/600x400/?{trip.Destination},travel";
+
+                <div class="col-sm-6 col-lg-4 fade-in">
+                    <div class="card trip-card shadow border-0 rounded-4 h-100">
+                        <!-- Trip Image -->
+                        <img src="@imageUrl" alt="@trip.Destination" class="card-img-top rounded-top-4" style="height:200px; object-fit:cover;" />
+
+                        <!-- Trip Details -->
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold text-dark mb-2">@trip.Name</h5>
+                            <p class="text-muted small mb-3">
+                                <i class="bi bi-geo-alt-fill text-primary"></i> @trip.Destination
+                            </p>
+                            <p class="text-secondary mb-4">
+                                <i class="bi bi-calendar-event"></i>
+                                @trip.StartDate.ToString("dd MMM yyyy") → @trip.EndDate.ToString("dd MMM yyyy")
+                            </p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a asp-action="Itinerary" asp-route-id="@trip.TripId" class="btn btn-outline-primary btn-sm rounded-pill">🗓️ Itinerary</a>
+                                <a asp-action="EditTrip" asp-route-id="@trip.TripId" class="btn btn-outline-success btn-sm rounded-pill">✏️ Edit</a>
+                                <form asp-action="DeleteTrip" asp-route-id="@trip.TripId" method="post" onsubmit="return confirm('Delete this trip?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">🗑️ Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+        border-radius: 30px;
+    }
+
+    .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .trip-card {
+        background: #ffffff;
+        border-radius: 20px;
+        transition: all 0.4s ease;
+        overflow: hidden;
+    }
+
+    .trip-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        letter-spacing: 0.5px;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

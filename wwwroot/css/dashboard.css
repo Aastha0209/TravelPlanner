@@ -1,0 +1,71 @@
+body {
+    background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+h2 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Button styling */
+.btn {
+    transition: all 0.3s ease;
+    border-radius: 30px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Card hover */
+.hover-scale {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Search bar */
+#tripSearch {
+    border-radius: 30px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+#tripSearch:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+/* Card layout */
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Countdown badges */
+.badge {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* No trip message */
+.text-muted i {
+    opacity: 0.5;
+}
+
+.text-muted h4 {
+    font-weight: 500;
+}

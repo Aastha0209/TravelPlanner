@@ -1,0 +1,79 @@
+@model TravelPlanner.Models.Trip
+@{
+    ViewData["Title"] = "Edit Trip";
+}
+
+<div class="container py-5 fade-in">
+    <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+        <h2 class="fw-bold text-primary mb-4 text-center">✏️ Edit Trip</h2>
+
+        <form asp-action="EditTrip" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="TripId" />
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-semibold">Trip Name</label>
+                <input asp-for="Name" class="form-control shadow-sm rounded-pill" required />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Destination" class="form-label fw-semibold">Destination</label>
+                <input asp-for="Destination" class="form-control shadow-sm rounded-pill" required />
+                <span asp-validation-for="Destination" class="text-danger small"></span>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="StartDate" class="form-label fw-semibold">Start Date</label>
+                    <input asp-for="StartDate" type="date" class="form-control shadow-sm rounded-pill" required />
+                    <span asp-validation-for="StartDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="EndDate" class="form-label fw-semibold">End Date</label>
+                    <input asp-for="EndDate" type="date" class="form-control shadow-sm rounded-pill" required />
+                    <span asp-validation-for="EndDate" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-gradient px-5 rounded-pill">💾 Save Changes</button>
+                <a asp-action="Dashboard" class="btn btn-outline-secondary rounded-pill ms-2">← Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        font-family: "Poppins", sans-serif;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .fade-in {
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

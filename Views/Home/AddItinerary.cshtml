@@ -1,0 +1,73 @@
+@model TravelPlanner.Models.Trip
+@{
+    ViewData["Title"] = "Add Itinerary";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-primary">@Model.Name - @Model.Destination</h2>
+    <a asp-action="Dashboard" class="btn btn-secondary mb-4">Back to Dashboard</a>
+
+    <!-- Add New Itinerary Item Form -->
+    <div class="card p-4 mb-4 shadow-sm bg-light rounded">
+        <h5 class="mb-3">Add New Item</h5>
+        <form asp-action="AddItineraryItem" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="TripId" value="@Model.TripId" />
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <select name="Type" class="form-select" required>
+                        <option value="">Select Type</option>
+                        @{
+                            var types = new[] { "Place", "Activity", "Restaurant" };
+                        }
+                        @foreach (var type in types)
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Name</label>
+                    <input name="Name" class="form-control" placeholder="Enter name" required />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Date</label>
+                    <input name="Date" type="date" class="form-control" />
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Add Item</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Itinerary List -->
+    @if (!Model.Itineraries.Any())
+    {
+        <p class="text-muted">No itinerary items yet. Add some above!</p>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var item in Model.Itineraries.OrderBy(i => i.Date))
+            {
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>@item.Type:</strong> @item.Name 
+                        @if(item.Date != null){<span class="text-muted">(@item.Date?.ToString("dd MMM yyyy"))</span>}
+                        @if(!string.IsNullOrEmpty(item.Notes)){<div class="text-muted small">@item.Notes</div>}
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a asp-action="EditItineraryItem" asp-route-id="@item.ItineraryId" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <form asp-action="DeleteItineraryItem" asp-route-id="@item.ItineraryId" method="post" onsubmit="return confirm('Delete this item?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
