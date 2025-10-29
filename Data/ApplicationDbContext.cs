@@ -9,12 +9,11 @@ namespace TravelPlanner.Data
             : base(options)
         { }
 
-        // DbSets
+        // DbSets (tables)
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Trip> Trips { get; set; } = null!;
         public DbSet<Itinerary> Itineraries { get; set; } = null!;
-        public DbSet<TripImage> TripImages { get; set; }
-
+        public DbSet<TripImage> TripImages { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,7 +38,7 @@ namespace TravelPlanner.Data
                 .HasForeignKey(i => i.TripId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Optional: default table names
+            // Optional table names
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Trip>().ToTable("Trips");
             modelBuilder.Entity<Itinerary>().ToTable("Itineraries");

@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TravelPlanner.Data;
 using TravelPlanner.Models;
-using System.Security.Cryptography;
-using System.Text;
 using System.Linq;
+using BCrypt.Net;
 
 namespace TravelPlanner.Controllers
 {
@@ -36,8 +35,8 @@ namespace TravelPlanner.Controllers
                     return View();
                 }
 
-                // Hash the password before saving
-                user.PasswordHash = HashPassword(user.PasswordHash);
+                // ✅ Hash the password using BCrypt
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
 
                 _context.Users.Add(user);
                 _context.SaveChanges();
@@ -60,13 +59,14 @@ namespace TravelPlanner.Controllers
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-            if (user == null || !VerifyPassword(password, user.PasswordHash))
+            // ✅ Verify BCrypt hash
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
                 ViewBag.Error = "Invalid email or password!";
                 return View();
             }
 
-            // Store user info in session
+            // ✅ Store user info in session
             HttpContext.Session.SetInt32("UserId", user.UserId);
             HttpContext.Session.SetString("UserName", user.Name);
 
@@ -78,22 +78,6 @@ namespace TravelPlanner.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
-        }
-
-        // ---------- Password Hashing ----------
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(bytes);
-            }
-        }
-
-        private bool VerifyPassword(string enteredPassword, string storedHash)
-        {
-            string enteredHash = HashPassword(enteredPassword);
-            return enteredHash == storedHash;
         }
     }
 }
